@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var vowels = {'а':true, 'у':true, 'о':true, 'и':true, 'э':true, 'ы':true, 'я':true, 'ю':true, 'е':true, 'ё':true, 'А':true, 'У':true, 'О':true, 'И':true, 'Э':true, 'Ы':true, 'Я':true, 'Ю':true, 'Е':true, 'Ё':true};
+        var string= prompt ('Введите предложение');
+        alert (countVowels(vowels,string));
+        function countVowels(vowels,string) {
+            var counter = 0;
+            for (var i=0; i<string.length; i++) {
+                if (vowels[string[i]]) {
+                    counter++;
+                }
+            }
+            return counter;
+        }
+    </script>
+</body>
+</html>
