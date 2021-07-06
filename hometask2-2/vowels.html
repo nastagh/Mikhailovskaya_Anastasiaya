@@ -8,10 +8,10 @@
 </head>
 <body>
     <script>
-        var vowels = {'а':true, 'у':true, 'о':true, 'и':true, 'э':true, 'ы':true, 'я':true, 'ю':true, 'е':true, 'ё':true, 'А':true, 'У':true, 'О':true, 'И':true, 'Э':true, 'Ы':true, 'Я':true, 'Ю':true, 'Е':true, 'Ё':true};
         var string= prompt ('Введите предложение');
-        alert (countVowels(vowels,string));
-        function countVowels(vowels,string) {
+        alert (countVowels(string));
+        function countVowels(string) {
+            var vowels = {'а':true, 'у':true, 'о':true, 'и':true, 'э':true, 'ы':true, 'я':true, 'ю':true, 'е':true, 'ё':true, 'А':true, 'У':true, 'О':true, 'И':true, 'Э':true, 'Ы':true, 'Я':true, 'Ю':true, 'Е':true, 'Ё':true};
             var counter = 0;
             for (var i=0; i<string.length; i++) {
                 if (vowels[string[i]]) {
