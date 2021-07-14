@@ -16,8 +16,9 @@ function mood(colorsCount) {
         }
         else {
             selected[colorName]=true;
+            console.log( colorName );
         }
-        console.log( colorName );
+        
 
     }
     console.log(selected);
