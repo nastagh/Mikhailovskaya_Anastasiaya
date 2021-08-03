@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        label {
+            display: block;
+            margin: 10px 0 10px 10px;
+        }
+
+        textarea {
+            width: 200px;
+            height: 100px;
+        }
+    </style>
+    <script src="index.js">
+    </script>
+    <button onclick="alertOne()">
+        1
+    </button>
+    <button onclick="alertTwo()">
+        2
+    </button>
+    <form method="POST" name="form">
+        <label>
+            Ваше Имя:
+            <input type="text" name="name">
+        </label>
+        
+        <label>
+            Согласны
+            <input type="checkbox" name="agree" value="yes">
+        </label>
+        <label>
+            Ответ: <br>
+            <textarea name="mytext">
+            </textarea>
+        </label>
+    </form>
+    <div>
+        Погода
+    </div>
+    <div>
+        Дождь
+    </div>
+    <div>
+        Солнце
+    </div>
+</body>
+</html>
