@@ -21,7 +21,7 @@ for (let element of smileDivs) {
     element.style.color='red';
 }
 // Установить второму смайлику цвет желтый (с помощью обращению по индексу массива)
-smileDivs[2].style.color='yellow';
+smileDivs[1].style.color='yellow';
 // Чтобы использовать forEach() на этом массиве, необходимо его преобразовать в немного другой
 // const smileDivsArr = Array.from(smileDivs). Теперь в smileDivsArr будет лежать самый обыкновенный массив, у которого доступен метод forEach
 // С помощью forEach, сделать им цвет бэкграунда серым
@@ -37,7 +37,7 @@ const wrapperSpans=document.querySelectorAll('div#wrapper>span');
 // Чтобы именно "добавить" класс, лучше использовать element.classList.add(название_класса)
 wrapperSpans.forEach(v=>v.classList.add('class3'));
 // Измени текст последнего спана на 44 (с помощью innerHTML (D.35))
-wrapperSpans[wrapperSpans.length-1].innerHTML='<span>44</span>';
+wrapperSpans[wrapperSpans.length-1].innerHTML='44';
 // Измени содержимое второго спана на <div>MY DIV</div> (тоже с помощью innerHTML)
 wrapperSpans[1].innerHTML='<div>MY DIV </div>';
 
@@ -56,6 +56,8 @@ console.log(usernamePassword);
 credentialsForm.onsubmit = (e) => {
     e.preventDefault(); // чтоб страница не обновлялась
     const form = e.target;
+    const usernameInput=form.elements.username;
+    const usernamePassword=form.elements.password;
     console.log(usernameInput.value);
     console.log(usernamePassword.value);
 }
