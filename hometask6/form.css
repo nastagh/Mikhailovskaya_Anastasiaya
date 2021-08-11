@@ -1,0 +1,12 @@
+label {
+    display: block;
+    margin: 10px 0;
+}
+
+.longtext {
+    width: 500px;
+}
+
+.shorttext {
+    width: 250px;
+}
