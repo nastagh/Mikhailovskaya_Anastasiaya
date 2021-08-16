@@ -98,6 +98,5 @@ const formDef1=[
   {label:'Зарегистрироваться:',kind:'submit'},
 ];
 
-
 fillForm(dynForm, formDef1);
 fillForm(dynForm, formDef2);
