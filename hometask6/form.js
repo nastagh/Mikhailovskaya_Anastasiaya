@@ -1,8 +1,12 @@
 'use strict'
 
 const dynForm=document.forms.dyn_form;
+
 dynForm.setAttribute('action','https://fe.it-academy.by/TestForm.php');
 dynForm.setAttribute('method','post');
+const dynForm2=document.form.dyn_form2;
+dynForm2.setAttribute('action','https://fe.it-academy.by/TestForm.php');
+dynForm2.setAttribute('method','post');
 
 function fillForm(form,array) {
     for (let description of array) {
@@ -60,7 +64,6 @@ function fillForm(form,array) {
             case 'memo':
                 inputElement=document.createElement('textarea');
                 inputElement.setAttribute('name',description.name);
-                inputElement.setAttribute('name',description.name);
                 break;  
             case 'submit':               
                 inputElement=document.createElement('input') ;
@@ -99,4 +102,4 @@ const formDef1=[
 ];
 
 fillForm(dynForm, formDef1);
-fillForm(dynForm, formDef2);
+fillForm(dynForm2,formDef2);
