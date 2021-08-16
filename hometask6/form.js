@@ -1,5 +1,6 @@
 'use strict'
 
+
 const dynForm=document.forms.dyn_form;
 
 dynForm.setAttribute('action','https://fe.it-academy.by/TestForm.php');
@@ -7,6 +8,7 @@ dynForm.setAttribute('method','post');
 const dynForm2=document.forms.dyn_form2;
 dynForm2.setAttribute('action','https://fe.it-academy.by/TestForm.php');
 dynForm2.setAttribute('method','post');
+
 
 function fillForm(form,array) {
     for (let description of array) {
