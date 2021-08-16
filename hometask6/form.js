@@ -1,23 +1,31 @@
 'use strict'
 
+const dynForm=document.forms.dyn_form;
+dynForm.setAttribute('action','https://fe.it-academy.by/TestForm.php');
+dynForm.setAttribute('method','post');
 
 function fillForm(form,array) {
     for (let description of array) {
         const labelElement=document.createElement('label');
         let inputElement;
-        labelElement.innerHTML=description.label;
+        labelElement.innerHTML=description.label; 
         switch (description.kind) {
             case 'longtext':
                 inputElement=document.createElement('input');
+                inputElement.setAttribute('type','text');
                 inputElement.className='longtext';
+                inputElement.setAttribute('name',description.name);
                 break;
             case 'shorttext':
                 inputElement=document.createElement('input');
+                inputElement.setAttribute('type','text');
                 inputElement.className='shorttext';
+                inputElement.setAttribute('name',description.name);
                 break;
             case 'number':
                 inputElement=document.createElement('input');
                 inputElement.setAttribute('type','number');
+                inputElement.setAttribute('name',description.name);
                 break;
             case 'combo':
                 inputElement=document.createElement('select');
@@ -26,36 +34,46 @@ function fillForm(form,array) {
                     option.innerHTML=variant.text;
                     option.setAttribute('value',variant.value);
                     inputElement.appendChild(option);
+                    
                 });
+                inputElement.setAttribute('name',description.name);
                 break;
             case 'radio':
-                inputElement=document.createElement('input');
+                inputElement=document.createElement('div');
                 description.variants.forEach(variant => {
-                   inputElement.innerHTML=variant.text;
-                   inputElement.setAttribute('type','radio');
-                })
-                
-            }
-
-        
+                    let pElem=document.createElement('p');                   
+                    let radioInput=document.createElement('input');
+                    radioInput.setAttribute('type','radio');                    
+                    pElem.appendChild(radioInput);
+                    pElem.append(variant.text);
+                    pElem.setAttribute('value', variant.value)
+                    inputElement.appendChild(pElem);                                        
+                });
+                inputElement.setAttribute('name',description.name);
+                break;
+            case 'check':
+                inputElement=document.createElement('input');
+                inputElement.setAttribute('type','checkbox');
+                inputElement.setAttribute('checked','');
+                inputElement.setAttribute('name',description.name);
+                break;
+            case 'memo':
+                inputElement=document.createElement('textarea');
+                inputElement.setAttribute('name',description.name);
+                inputElement.setAttribute('name',description.name);
+                break;  
+            case 'submit':               
+                inputElement=document.createElement('input') ;
+                inputElement.setAttribute('type','submit');
+                inputElement.setAttribute('value', description.label);
+                labelElement.innerHTML='';
+                break;
+            }            
 
         labelElement.appendChild(inputElement);
-        form.appendChild(labelElement);
-        
-        
+        form.appendChild(labelElement);              
     }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 const formDef1=[
     {label:'Название сайта:',kind:'longtext',name:'sitename'},
@@ -81,5 +99,5 @@ const formDef1=[
 ];
 
 
-const dynForm=document.forms.dyn_form;
 fillForm(dynForm, formDef1);
+fillForm(dynForm, formDef2);

@@ -10,3 +10,8 @@ label {
 .shorttext {
     width: 250px;
 }
+
+p {
+    display: inline;
+}
+
