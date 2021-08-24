@@ -91,13 +91,6 @@ function validForm(EO) {
             firstInvalid=firstInvalid||catalogField;
         }
 
-        if (!kindValue) {
-            let parent=kindField[0].parentNode;
-            let message=parent.querySelector('.validation_message'); 
-            message.textContent='*Вы не выбрали способ размещения!';
-            firstInvalid||=document.getElementById('textKind');
-        }
-
         if (!agreeValue) {
             let parent=agreeField.parentNode;
             let message=parent.querySelector('.validation_message'); 
