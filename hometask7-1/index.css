@@ -1,0 +1,17 @@
+.text {
+    display: inline-block;
+    width: 150px;
+}
+
+.pole {
+    width: 350px;
+}
+
+div {
+    margin-top: 5px;
+}
+
+.validation_message {
+    color: red;
+    font-style: italic;
+}

@@ -12,45 +12,57 @@
     <p>
         Для внесения вашего сайта в каталог, заполните форму:
     </p>
-    <form method="POST" action="https://fe.it-academy.by/TestForm.php">
+    <form name="validForm" method="POST" action="https://fe.it-academy.by/TestForm.php">
         <div>
-            <span>
+            <span class="text">
                 Разработчики:
             </span>
-            <input type="text" name="developer">
+            <input class="pole" type="text" name="developer">
+            <span class="validation_message">
+            </span>
         </div>
         <div>
-            <span>
+            <span class="text">
                 Название сайта:
             </span>
-            <input type="text" name="website">
+            <input class="pole" type="text" name="website">
+            <span class="validation_message">
+            </span>
         </div>
         <div>
-            <span>
+            <span class="text">
                 URL сайта:
             </span>
             <input type="text" name="websiteURL">
+            <span class="validation_message">
+            </span>
         </div>
         <div>
-            <span>
+            <span class="text">
                 Дата запуска сайта:
             </span>
             <input name="data">
+            <span class="validation_message">
+            </span>
         </div>
         <div>
-            <span>
+            <span class="text">
                 Посетителей в сутки:
             </span>
             <input type="number" name="amount">
+            <span class="validation_message">
+            </span>
         </div>
         <div>
-            <span>
+            <span class="text">
                 E-mail для связи:
             </span>
             <input type="text" name="email">
+            <span class="validation_message">
+            </span>
         </div>
         <div>
-            <span>
+            <span class="text">
                 Рубрика каталога:
             </span>
             <select name="catalog">
@@ -64,15 +76,41 @@
                     мебель
                 </option>
             </select>
+            <span class="validation_message">
+            </span>
         </div>
         <div>
-            <span>
+            <span class="text">
                 Размещение:
             </span>
-            
+            <input type="radio" id=textKind name="kind" value="1">
+            бесплатно
+            <input type="radio" name="kind" value="2"> 
+            платно
+            <input type="radio" name="kind" value="3">
+            VIP
+            <span class="validation_message">
+            </span>
         </div>
-        
+        <div>
+            <span class="text">
+                Разрешить отзыв:
+            </span>
+            <input type="checkbox" name="agree">
+            <span class="validation_message">
+            </span>
+        </div>
+        <div>
+           <div>
+                Описание сайта:
+           </div>
+           <textarea class="pole" name="description"></textarea> 
+           <span class="validation_message">
+            </span>
+        </div>
+        <input type="submit" value="Опубликовать">       
 
     </form>
+    <script src="index.js"></script>
 </body>
 </html>
