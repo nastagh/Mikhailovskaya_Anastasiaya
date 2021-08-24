@@ -12,138 +12,109 @@ function validForm(EO) {
         let firstInvalid;
         
         const developerField=formTag.elements.developer;
-        let developerValue=developerField.value;
+        const developerValue=developerField.value;
         
         const websiteField=formTag.elements.website;
-        let websiteValue=websiteField.value;
+        const websiteValue=websiteField.value;
 
         const websiteURLField=formTag.elements.websiteURL;
-        let websiteURLValue=websiteURLField.value;
+        const websiteURLValue=websiteURLField.value;
 
         const dataField=formTag.elements.data;
-        let dataValue=dataField.value;
+        const dataValue=dataField.value;
 
         const amountField=formTag.elements.amount;
-        let amountValue=amountField.value;
+        const amountValue=amountField.value;
 
         const emailField=formTag.elements.email;
-        let emailValue=emailField.value;
+        const emailValue=emailField.value;
 
         const catalogField=formTag.elements.catalog;
-        let catalogValue=catalogField.value;
+        const catalogValue=catalogField.value;
 
         const kindField=formTag.elements.kind;
-        let kindValue=kindField.value;
+        const kindValue=kindField.value;
 
         const agreeField=formTag.elements.agree;
-        let agreeValue=agreeField.checked;
+        const agreeValue=agreeField.checked;
 
         const descriptionField=formTag.elements.description;
-        let descriptionValue=descriptionField.value;
+        const descriptionValue=descriptionField.value;
 
 
         if (!developerValue) {
            let parent=developerField.parentNode;
            let message=parent.querySelector('.validation_message'); 
            message.textContent='*Введите информацию';
-           if (!firstInvalid) {
-            firstInvalid=developerField;
-           } 
-           EO.preventDefault();
+           firstInvalid=firstInvalid||developerField;
         }
 
         if (websiteValue.length<2) {
             let parent=websiteField.parentNode;
             let message=parent.querySelector('.validation_message');
             message.textContent='*Введите название имеющее больше двух букв';
-            if (!firstInvalid) {
-                firstInvalid=websiteField;
-               } 
-            EO.preventDefault();
+            firstInvalid=firstInvalid||websiteField;
         }
 
         if (!websiteURLValue) {
             let parent=websiteURLField.parentNode;
             let message=parent.querySelector('.validation_message'); 
             message.textContent='*Введите информацию';
-            if (!firstInvalid) {
-                firstInvalid=websiteURLField;
-               }
-            EO.preventDefault();
+            firstInvalid=firstInvalid||websiteURLField;
         }
 
         if (isNaN(dataValue)||!dataValue) {
             let parent=dataField.parentNode;
             let message=parent.querySelector('.validation_message'); 
             message.textContent='*Введите число';
-            if (!firstInvalid) {
-                firstInvalid=dataField;
-               }
-            EO.preventDefault();
+            firstInvalid=firstInvalid||dataField;
         }
 
         if (amountValue<0||!amountValue) {
             let parent=amountField.parentNode;
             let message=parent.querySelector('.validation_message'); 
             message.textContent='*Введите число';
-            if (!firstInvalid) {
-                firstInvalid=amountField;
-               }
-            EO.preventDefault();
+            firstInvalid=firstInvalid||amountField;
         }
 
         if (!emailValue) {
             let parent=emailField.parentNode;
             let message=parent.querySelector('.validation_message'); 
             message.textContent='*Введите информацию';
-            if (!firstInvalid) {
-                firstInvalid=emailField;
-               }
-            EO.preventDefault();
+            firstInvalid=firstInvalid||emailField;
         }
 
         if (catalogValue==3) {
             let parent=catalogField.parentNode;
             let message=parent.querySelector('.validation_message'); 
             message.textContent='*К сожалению выбранная рубрика пуста';
-            if (!firstInvalid) {
-                firstInvalid=catalogField;
-               }
-            EO.preventDefault();
+            firstInvalid=firstInvalid||catalogField;
         }
 
         if (!kindValue) {
             let parent=kindField[0].parentNode;
             let message=parent.querySelector('.validation_message'); 
             message.textContent='*Вы не выбрали способ размещения!';
-            if (!firstInvalid) {
-                firstInvalid=document.getElementById('textKind');
-               }
-            EO.preventDefault();
+            firstInvalid||=document.getElementById('textKind');
         }
 
         if (!agreeValue) {
             let parent=agreeField.parentNode;
             let message=parent.querySelector('.validation_message'); 
             message.textContent='*Вы не разрешили оставить отзыв';
-            if (!firstInvalid) {
-                firstInvalid=agreeField;
-               }
-            EO.preventDefault();
+            firstInvalid=firstInvalid||agreeField;
         }
 
         if (!descriptionValue) {
             let parent=descriptionField.parentNode;
             let message=parent.querySelector('.validation_message');
             message.textContent='*Введите описание сайта';
-            if (!firstInvalid) {
-                firstInvalid=descriptionField;
-               }
-            EO.preventDefault();
+            firstInvalid=firstInvalid||descriptionField;
         }
 
         if (firstInvalid) {
             firstInvalid.focus();
+            EO.preventDefault();
         }  
 
     }
@@ -218,7 +189,6 @@ function validInput(EO) {
                 message.textContent='*Введите описание сайта';
             }
             break
-
     }
 
 }
