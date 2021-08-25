@@ -84,18 +84,27 @@ function validForm(EO) {
             firstInvalid=firstInvalid||emailField;
         }
 
-        if (catalogValue==3) {
+        if (catalogValue==0) {
             let parent=catalogField.parentNode;
             let message=parent.querySelector('.validation_message'); 
-            message.textContent='*К сожалению выбранная рубрика пуста';
+            message.textContent='*Вы не выбрали рубрику';
             firstInvalid=firstInvalid||catalogField;
+        }
+
+        if (kindValue=="") {
+            let parent=kindField[0].parentNode;
+            let message=parent.querySelector('.validation_message');
+            message.textContent='*Вы не выбрали способ размещения!';
+            document.getElementById('textKind').scrollIntoView();
         }
 
         if (!agreeValue) {
             let parent=agreeField.parentNode;
             let message=parent.querySelector('.validation_message'); 
             message.textContent='*Вы не разрешили оставить отзыв';
-            firstInvalid=firstInvalid||agreeField;
+                if (!firstInvalid) {
+                    firstInvalid=agreeField;
+                }
         }
 
         if (!descriptionValue) {
@@ -133,35 +142,56 @@ function validInput(EO) {
             if (!input.value) {
                 message.textContent='*Введите информацию';
             }
+            else {
+                message.textContent='';
+            }
             break;
         case 'website' :
             if (input.value.length<2) {
                 message.textContent='*Введите название имеющее больше двух букв';
+            }
+            else {
+                message.textContent='';
             }
             break;
         case 'websiteURL' :
             if (!input.value) {
                 message.textContent='*Введите информацию';
             }
+            else {
+                message.textContent='';
+            }
             break;
         case 'data' :
             if (isNaN(input.value)||!input.value) {
                 message.textContent='*Введите число';
+            }
+            else {
+                message.textContent='';
             }
             break;
         case 'amount' :
             if (input.value<0||!input.value) {
                 message.textContent='*Введите число';
             }
+            else {
+                message.textContent='';
+            }
             break;
         case 'email' :
             if (!input.value) {
                 message.textContent='*Введите информацию';
             }
+            else {
+                message.textContent='';
+            }
             break;
         case 'catalog' :
-            if (input.value==3) {
-                message.textContent='*К сожалению выбранная рубрика пуста';
+            if (input.value==0) {
+                message.textContent='*Вы не выбрали рубрику';
+            }
+            else {
+                message.textContent='';
             }
             break;
         case 'kind' :
@@ -170,16 +200,25 @@ function validInput(EO) {
                 let message=parentKind.querySelector('.validation_message'); 
                 message.textContent='*Вы не выбрали способ размещения!';
             }
+            else {
+                message.textContent='';
+            }
             break;
 
         case 'agree' :
             if (!input.checked) {
                 message.textContent='*Вы не разрешили оставить отзыв';
             }
+            else {
+                message.textContent='';
+            }
             break;
         case 'description' :
             if (!input.value) {
                 message.textContent='*Введите описание сайта';
+            }
+            else {
+                message.textContent='';
             }
             break
     }
