@@ -95,8 +95,8 @@ function validForm(EO) {
             let parent=kindField[0].parentNode;
             let message=parent.querySelector('.validation_message');
             message.textContent='*Вы не выбрали способ размещения!';
-            document.getElementById('textKind').scrollIntoView();
-            firstInvalid=firstInvalid||kindField;
+            // document.getElementById('textKind').scrollIntoView();
+            firstInvalid=firstInvalid||kindField[0];
         }
 
         if (!agreeValue) {
@@ -116,7 +116,7 @@ function validForm(EO) {
         if (firstInvalid) {
             firstInvalid.focus();
             EO.preventDefault();
-        }  
+        }          
 
     }
 
