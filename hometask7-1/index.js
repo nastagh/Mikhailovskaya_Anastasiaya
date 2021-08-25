@@ -96,15 +96,14 @@ function validForm(EO) {
             let message=parent.querySelector('.validation_message');
             message.textContent='*Вы не выбрали способ размещения!';
             document.getElementById('textKind').scrollIntoView();
+            firstInvalid=firstInvalid||kindField;
         }
 
         if (!agreeValue) {
             let parent=agreeField.parentNode;
             let message=parent.querySelector('.validation_message'); 
             message.textContent='*Вы не разрешили оставить отзыв';
-                if (!firstInvalid) {
-                    firstInvalid=agreeField;
-                }
+            firstInvalid=firstInvalid||agreeField;
         }
 
         if (!descriptionValue) {
