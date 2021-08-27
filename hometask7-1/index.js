@@ -197,8 +197,8 @@ function validInput(EO) {
     
 }
 
-formTag.addEventListener('change', validRadio,false); 
-function validRadio(EO) {
+formTag.addEventListener('change', validateChange,false); 
+function validateChange(EO) {
     EO=EO||window.event;
 
     let input=EO.target;
