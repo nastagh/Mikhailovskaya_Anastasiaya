@@ -185,6 +185,26 @@ function validInput(EO) {
                 message.textContent='';
             }
             break;
+        case 'description' :
+            if (!input.value) {
+                message.textContent='*Введите описание сайта';
+            }
+            else {
+                message.textContent='';
+            }
+            break;
+    }
+    
+}
+
+formTag.addEventListener('change', validRadio,false); 
+function validRadio(EO) {
+    EO=EO||window.event;
+
+    let input=EO.target;
+    let parent=input.parentNode;
+    let message=parent.querySelector('.validation_message'); 
+    switch (input.name) {
         case 'catalog' :
             if (input.value==0) {
                 message.textContent='*Вы не выбрали рубрику';
@@ -212,14 +232,6 @@ function validInput(EO) {
                 message.textContent='';
             }
             break;
-        case 'description' :
-            if (!input.value) {
-                message.textContent='*Введите описание сайта';
-            }
-            else {
-                message.textContent='';
-            }
-            break
     }
-
 }
+
