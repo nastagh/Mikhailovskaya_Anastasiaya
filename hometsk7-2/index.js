@@ -1,5 +1,6 @@
 "use strict"
 
+
 document.body.ondragstart = function () {
     return false
 };
@@ -7,14 +8,17 @@ document.body.ondragstart = function () {
 const imgElem=document.getElementsByTagName('img');
 const divElem=document.querySelector('.container');
 
-Array.from(imgElem).forEach(element => {
-    element.style.left=element.offsetLeft+'px';
-    element.style.top=element.offsetTop+'px';
-});
+window.onload=function() {
+    Array.from(imgElem).forEach(element => {
+        element.style.left=element.offsetLeft+'px';
+        element.style.top=element.offsetTop+'px';
+    });
+    
+    Array.from(imgElem).forEach(element => {
+        element.style.position='absolute';
+    });
+}
 
-Array.from(imgElem).forEach(element => {
-    element.style.position='absolute';
-});
 
 document.body.addEventListener('mousedown',mousedown,false);
 document.body.addEventListener('mousemove',mousemove,false);
