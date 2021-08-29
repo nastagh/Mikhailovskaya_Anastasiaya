@@ -29,6 +29,7 @@ function mousedown (event) {
     event=event||window.event;
     currentPicture=event.target;
     if (currentPicture.tagName=='IMG') {
+        currentPicture.style.cursor='pointer';
         currentPicture.style.position='absolute';
         clickX=event.pageX-currentPicture.offsetLeft;
         clickY=event.pageY-currentPicture.offsetTop;
@@ -47,6 +48,7 @@ function mousemove (event) {
 function mouseup (event) {
     event=event||window.event;
     if (currentPicture) {
+        currentPicture.style.cursor='default';
         currentPicture=undefined;
     }
 }
