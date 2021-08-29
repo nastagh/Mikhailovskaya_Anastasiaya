@@ -5,6 +5,7 @@ document.body.ondragstart = function () {
 };
 
 const imgElem=document.getElementsByTagName('img');
+const divElem=document.querySelector('.container');
 
 Array.from(imgElem).forEach(element => {
     element.style.left=element.offsetLeft+'px';
@@ -14,8 +15,6 @@ Array.from(imgElem).forEach(element => {
 Array.from(imgElem).forEach(element => {
     element.style.position='absolute';
 });
-
-
 
 document.body.addEventListener('mousedown',mousedown,false);
 document.body.addEventListener('mousemove',mousemove,false);
@@ -33,6 +32,7 @@ function mousedown (event) {
         currentPicture.style.position='absolute';
         clickX=event.pageX-currentPicture.offsetLeft;
         clickY=event.pageY-currentPicture.offsetTop;
+        divElem.appendChild(currentPicture);
     }
 }
 
