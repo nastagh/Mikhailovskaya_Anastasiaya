@@ -1,8 +1,20 @@
 "use strict"
 
+document.body.ondragstart = function () {
+    return false
+};
 
-// const imgElem=document.getElementById('picture');
-// console.log(imgElem);
+const imgElem=document.getElementsByTagName('img');
+
+Array.from(imgElem).forEach(element => {
+    element.style.left=element.offsetLeft+'px';
+    element.style.top=element.offsetTop+'px';
+});
+
+Array.from(imgElem).forEach(element => {
+    element.style.position='absolute';
+});
+
 
 
 document.body.addEventListener('mousedown',mousedown,false);
@@ -21,17 +33,14 @@ function mousedown (event) {
         currentPicture.style.position='absolute';
         clickX=event.pageX-currentPicture.offsetLeft;
         clickY=event.pageY-currentPicture.offsetTop;
-    console.log(clickY,clickX);
     }
-    // console.log(currentPicture);
 }
 
 function mousemove (event) {
-    event=event||window.event;
+    event=event||document.event;
     if (currentPicture) {
         currentPicture.style.left=event.pageX-clickX+"px";
         currentPicture.style.top=event.pageY-clickY+"px";
-        console.log(currentPicture);
     }
 }
 
