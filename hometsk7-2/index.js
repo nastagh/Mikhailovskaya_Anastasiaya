@@ -30,9 +30,9 @@ let clickY=0;
 
 function mousedown (event) {
     event=event||window.event;
-    document.body.onmousemove = mousemove;
     currentPicture=event.target;
     if (currentPicture.tagName=='IMG') {
+        document.body.onmousemove = mousemove;
         currentPicture.style.cursor='pointer';
         currentPicture.style.position='absolute';
         clickX=event.pageX-currentPicture.offsetLeft;
