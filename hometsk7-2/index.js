@@ -21,7 +21,6 @@ window.onload=function() {
 
 
 document.body.addEventListener('mousedown',mousedown,false);
-document.body.addEventListener('mousemove',mousemove,false);
 document.body.addEventListener('mouseup',mouseup,false);
 
 
@@ -31,6 +30,7 @@ let clickY=0;
 
 function mousedown (event) {
     event=event||window.event;
+    document.body.onmousemove = mousemove;
     currentPicture=event.target;
     if (currentPicture.tagName=='IMG') {
         currentPicture.style.cursor='pointer';
@@ -43,6 +43,7 @@ function mousedown (event) {
 
 function mousemove (event) {
     event=event||document.event;
+    console.log(1);
     if (currentPicture) {
         currentPicture.style.left=event.pageX-clickX+"px";
         currentPicture.style.top=event.pageY-clickY+"px";
@@ -50,6 +51,7 @@ function mousemove (event) {
 }
 
 function mouseup (event) {
+    document.body.onmousemove=undefined;
     event=event||window.event;
     if (currentPicture) {
         currentPicture.style.cursor='default';
