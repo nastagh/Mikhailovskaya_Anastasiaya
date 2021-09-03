@@ -3,6 +3,9 @@
 const canvas=document.getElementById('CVS');
 const context=canvas.getContext('2d');
 
+let requestID;  //отмена анимации
+let gameNow; //идет ли сейчас игра
+
 //рисуем поле
 context.fillStyle='yellow';
 context.fillRect(0,0,canvas.width,canvas.height);
@@ -51,22 +54,38 @@ const ball={
         context.fill();
     }
 }
+account.innerHTML=ball.acLeft+':'+ball.acRight;
+
 //поле
 const area={
     width:500,
     height:300
 }
 
+//рандомный угол
+
+
 function start() {
+    gameNow=true;
+    cancelAnimationFrame(requestID);
+
     ball.posX=250;
     ball.posY=150;
+    let direction=(-1)^Math.round(Math.random()); //направление,получаем либо 1 либо -1
+    let angle=direction*Math.PI*(2/3*Math.random()+1/6); // рандомный угол, исключая направление вверх и вниз
+    ball.speedY=2*Math.cos(angle);
+    ball.speedX=2*Math.sin(angle);
     racketRight.posY=110;
     racketLeft.posY=110;
-    // //нажатие клавиш
-    window.addEventListener('keydown',keydown,false);
-    window.addEventListener('keyup',keyup,false);
 
-    requestAnimationFrame(tick);
+    // //нажатие клавиш
+    if (gameNow){
+        window.addEventListener('keydown',keydown,false);
+        window.addEventListener('keyup',keyup,false);
+    }
+    
+
+    requestID=requestAnimationFrame(tick);
 
 }
 
@@ -77,6 +96,7 @@ function tick() {
     ball.posY+=ball.speedY;
     racketLeft.posY+=racketLeft.speedY;
     racketRight.posY+=racketRight.speedY;
+    account.innerHTML=ball.acLeft+':'+ball.acRight;
 
 
     //ушла ли ракетка за поле 
@@ -92,18 +112,54 @@ function tick() {
     if (racketRight.posY+racketRight.height>area.height) {
         racketRight.posY=area.height-racketRight.height;
     }
+    //вылетел ли мячик вверх и вниз
+    if (ball.posY-ball.height/2<0) {
+        ball.speedY=-ball.speedY;
+        ball.posY=ball.height/2;
+    }
+    if (ball.posY+ball.height/2>area.height) {
+        ball.speedY=-ball.speedY;
+        ball.posY=area.height-ball.height/2;
+    }
+    //вылетел ли мячик влево 
+    if (ball.posX-ball.width/2<0) {
+        ball.speedX=0;
+        ball.speedY=0;
+        ball.posX=ball.width/2;
+        ball.acLeft+=1;
+        gameNow=false;
+        cancelAnimationFrame(requestID);
+    }
+    //вылетел ли мячик вправо
+    if (ball.posX+ball.width/2>area.width) {
+        ball.speedX=0;
+        ball.speedY=0;
+        ball.posX=area.width-ball.width/2;
+        ball.acRight+=1;
+        gameNow=false;
+        cancelAnimationFrame(requestID);
+    }
+    //ударился ли мячик о левую ракетку
+    if (ball.posX-ball.width/2<racketLeft.width) {
+        if (ball.posY>=racketLeft.posY&&ball.posY<racketLeft.posY+racketLeft.height){
+            ball.speedX=-ball.speedX;
+            ball.posX=racketLeft.width+ball.width/2; 
+        }
+    }
 
-
-
-
-
-
+    //ударился ли мячик о правую ракетку
+    if (ball.posX+ball.width/2>area.width-racketRight.width) {
+        if (ball.posY>=racketRight.posY&&ball.posY<racketRight.posY+racketRight.height) {
+            ball.speedX=-ball.speedX;
+            ball.posX=area.width-racketRight.width-ball.width/2;
+        }
+    }
 
     ball.updateB();
     racketLeft.updateL();
     racketRight.updateR();
 
-    requestAnimationFrame(tick);
+    requestID=requestAnimationFrame(tick);
 }
 
 ball.updateB();
@@ -113,7 +169,10 @@ racketRight.updateR();
 
 //клавиатура
 function keydown(EO){
-    EO=EO || window.event; 
+    EO=EO || window.event;
+    if (!gameNow) {
+        return
+    } 
     const key=EO.code;
     if (key==='ShiftLeft') {
         racketLeft.speedY=-2;
@@ -132,6 +191,9 @@ function keydown(EO){
 
 function keyup(EO) {
     EO=EO || window.event; 
+    if (!gameNow) {
+        return
+    }
     const key=EO.code;
     if (key==='ShiftLeft') {
         racketLeft.speedY=0;
@@ -148,4 +210,6 @@ function keyup(EO) {
     EO.preventDefault(); 
 }
 
-
+function randomDiap() {
+    return Math.round(Math.random());
+}
