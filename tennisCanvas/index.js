@@ -1,6 +1,5 @@
 "use strict";
 
-
 const canvas=document.getElementById('CVS');
 const context=canvas.getContext('2d');
 
@@ -18,7 +17,7 @@ const racketLeft={
     posY:110,
     width:10,
     height:80,
-    speedY:1,
+    speedY:0,
     updateL: function() {
         context.fillStyle='green';
         context.fillRect(0,this.posY,this.width,this.height);
@@ -29,7 +28,7 @@ const racketRight={
     posY:110,
     width:10,
     height:80,
-    speedY:1,
+    speedY:0,
     updateR: function() {
         context.fillStyle='blue';
         context.fillRect(490,this.posY,this.width,this.height);
@@ -39,7 +38,7 @@ const racketRight={
 const ball={
     posX:250,
     posY:150,
-    width:10,
+    width:20,
     height:10,
     speedX:2,
     speedY:2,
@@ -58,29 +57,52 @@ const area={
     height:300
 }
 
-
-
-
 function start() {
-    requestAnimationFrame(tick);
     ball.posX=250;
     ball.posY=150;
-    racketLeft.posY=110;
     racketRight.posY=110;
+    racketLeft.posY=110;
     // //нажатие клавиш
     window.addEventListener('keydown',keydown,false);
     window.addEventListener('keyup',keyup,false);
 
+    requestAnimationFrame(tick);
+
 }
 
 function tick() {
-    ball.posX+=ball.speedX;
-    ball.posY+=ball.speedY;
     context.fillStyle='yellow';
     context.fillRect(0,0,canvas.width,canvas.height);
+    ball.posX+=ball.speedX;
+    ball.posY+=ball.speedY;
+    racketLeft.posY+=racketLeft.speedY;
+    racketRight.posY+=racketRight.speedY;
+
+
+    //ушла ли ракетка за поле 
+    if (racketLeft.posY<0) {
+        racketLeft.posY=0;
+    }
+    if (racketLeft.posY+racketLeft.height>area.height) {
+        racketLeft.posY=area.height-racketLeft.height;
+    }
+    if (racketRight.posY<0) {
+        racketRight.posY=0;
+    }
+    if (racketRight.posY+racketRight.height>area.height) {
+        racketRight.posY=area.height-racketRight.height;
+    }
+
+
+
+
+
+
+
     ball.updateB();
     racketLeft.updateL();
     racketRight.updateR();
+
     requestAnimationFrame(tick);
 }
 
@@ -89,21 +111,21 @@ racketLeft.updateL();
 racketRight.updateR();
 
 
-
+//клавиатура
 function keydown(EO){
     EO=EO || window.event; 
     const key=EO.code;
     if (key==='ShiftLeft') {
-        racketLeft.posY-=racketLeft.speedY;
+        racketLeft.speedY=-2;
     }
     if (key==='ControlLeft') {
-        racketLeft.posY+=racketLeft.speedY;
+        racketLeft.speedY=2;
     }
     if (key==='ArrowUp') {
-        racketRight.posY-=racketRight.speedY;
+        racketRight.speedY=-2;
     }
     if (key==='ArrowDown') {
-        racketRight.posY+=racketRight.speedY;
+        racketRight.speedY=2;
     }
     EO.preventDefault(); 
 }
