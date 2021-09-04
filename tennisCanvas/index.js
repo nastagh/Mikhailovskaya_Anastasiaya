@@ -67,7 +67,7 @@ const area={
 
 function start() {
     gameNow=true;
-    cancelAnimationFrame(requestID);
+    // cancelAnimationFrame(requestID);
 
     ball.posX=250;
     ball.posY=150;
@@ -77,6 +77,7 @@ function start() {
     ball.speedX=2*Math.sin(angle);
     racketRight.posY=110;
     racketLeft.posY=110;
+    console.log(ball);
 
     // //нажатие клавиш
     if (gameNow){
@@ -128,7 +129,7 @@ function tick() {
         ball.posX=ball.width/2;
         ball.acLeft+=1;
         gameNow=false;
-        cancelAnimationFrame(requestID);
+        // cancelAnimationFrame(requestID);
     }
     //вылетел ли мячик вправо
     if (ball.posX+ball.width/2>area.width) {
@@ -137,7 +138,7 @@ function tick() {
         ball.posX=area.width-ball.width/2;
         ball.acRight+=1;
         gameNow=false;
-        cancelAnimationFrame(requestID);
+        // cancelAnimationFrame(requestID);
     }
     //ударился ли мячик о левую ракетку
     if (ball.posX-ball.width/2<racketLeft.width) {
