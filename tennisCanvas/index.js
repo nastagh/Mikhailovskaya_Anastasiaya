@@ -3,7 +3,6 @@
 const canvas=document.getElementById('CVS');
 const context=canvas.getContext('2d');
 
-let requestID;  //отмена анимации
 let gameNow; //идет ли сейчас игра
 
 //рисуем поле
@@ -67,7 +66,6 @@ const area={
 
 function start() {
     gameNow=true;
-    // cancelAnimationFrame(requestID);
 
     ball.posX=250;
     ball.posY=150;
@@ -79,16 +77,14 @@ function start() {
     racketLeft.posY=110;
     console.log(ball);
 
-    // //нажатие клавиш
+    //нажатие клавиш
     if (gameNow){
         window.addEventListener('keydown',keydown,false);
         window.addEventListener('keyup',keyup,false);
     }
-    
-
-    requestID=requestAnimationFrame(tick);
-
 }
+requestAnimationFrame(tick);
+
 
 function tick() {
     context.fillStyle='yellow';
@@ -160,7 +156,7 @@ function tick() {
     racketLeft.updateL();
     racketRight.updateR();
 
-    requestID=requestAnimationFrame(tick);
+    requestAnimationFrame(tick);
 }
 
 ball.updateB();
