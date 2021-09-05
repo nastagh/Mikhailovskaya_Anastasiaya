@@ -48,6 +48,39 @@ const area={
     height:400
 }
 
+
+//кирпичи
+class Brick {
+    constructor(posX,posY,width,height,color) {
+        this.posX=posX;
+        this.posY=posY;
+        this.width=width;
+        this.height=height;
+        this.color=color;
+    }
+}
+
+let bricks=[];
+const amountInRow=4;
+const amountOfRows=3;
+const brickWidth=area.width/amountInRow;
+const brickHeith=10;
+
+
+// for (row=0; row<amountOfRows; row++){
+//     for (column=0; column<amountInRow; column++){
+//         const brick=new Brick(column*brickWidth,row*brickHeith,brickWidth,brickHeith,'red');
+//         bricks.push(brick);
+//         context.drawBrick(brick)
+//     }
+// }
+context.drawBrick= function(brick) {
+    this.fillStyle=brick.color;
+    this.fillRect(brick.posX,brick.posY,brick.width,brick.heith);
+}
+
+
+
 function start(){
     gameNow=true;
     cancelAnimationFrame(requestG);
@@ -62,6 +95,15 @@ function start(){
         window.addEventListener('keyup',keyup,false);
         canvas.addEventListener('mousemove',mousemove,false);
     }
+    
+    for (row=0; row<amountOfRows; row++){
+        for (column=0; column<amountInRow; column++){
+            const brick=new Brick(column*brickWidth,row*brickHeith,brickWidth,brickHeith,'red');
+            bricks.push(brick);
+            context.drawBrick(brick)
+        }
+    }
+    
     requestG=requestAnimationFrame(tick);
 }
 
@@ -161,6 +203,6 @@ function mousemove(EO){
     if (!gameNow) {
         return
     }
-    racket.posX=EO.pageX;
+    racket.posX=EO.pageX-canvas.offsetLeft;
 }
 
