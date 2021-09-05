@@ -33,6 +33,7 @@ const ball={
     speedY:-2,
     acWin:0,
     acGame:0,
+    lev:1,
     updateB: function(){
         context.fillStyle='rgb(130 136 140)';
         context.beginPath();
@@ -41,7 +42,7 @@ const ball={
     }
 }
 score.innerHTML=`Score: ${ball.acWin}/${ball.acGame}`;
-level.innerHTML=`Level:1`
+level.innerHTML=`Level: ${ball.lev}`
 //поле
 const area={
     width:500,
@@ -99,6 +100,8 @@ function start(){
     racket.posX=200;
     racket.posY=385;
     if (gameNow){
+        ball.speedX=2*(-1)^Math.round(Math.random());
+        ball.speedY=-2*(-1)^Math.round(Math.random());
         window.addEventListener('keydown',keydown,false);
         window.addEventListener('keyup',keyup,false);
         canvas.addEventListener('mousemove',mousemove,false);
@@ -116,7 +119,8 @@ function tick() {
     ball.posY+=ball.speedY;
     racket.posX+=racket.speedX;
     score.innerHTML=`Score: ${ball.acWin}/${ball.acGame}`;
-    
+    level.innerHTML=`Level: ${ball.lev}`
+
     //ударился ли мяч о кирпичик
     for (let i=0; i<bricks.length; i++) {
         if (bricks[i].isTouch(ball)) {
@@ -132,7 +136,17 @@ function tick() {
         context.drawBrick(brick)
     });
 
+    //если кирпичи выбились, то игра останавливается
+    if (bricks.length==0) {
+        gameNow=false;
+        ball.speedY=0;
+        ball.speedX=0;
+        ball.acWin+=1;
+        ball.lev+=1;
+    }
 
+
+    
     //ушла ли ракетка за поле
     if (racket.posX<0) {
         racket.posX=0;
@@ -221,6 +235,6 @@ function mousemove(EO){
     if (!gameNow) {
         return
     }
-    racket.posX=EO.pageX-canvas.offsetLeft;
+    racket.posX=EO.pageX-canvas.offsetLeft-racket.width/2;
 }
 
