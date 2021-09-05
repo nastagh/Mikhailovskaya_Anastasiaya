@@ -94,8 +94,8 @@ function start(){
     cancelAnimationFrame(requestG);
     ball.posX=250;
     ball.posY=371;
-    ball.speedX=2;
-    ball.speedY=-2;
+    ball.speedX=2*(-1)^Math.round(Math.random());
+    ball.speedY=-2*(-1)^Math.round(Math.random());
     racket.posX=200;
     racket.posY=385;
     if (gameNow){
