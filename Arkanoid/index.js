@@ -60,7 +60,7 @@ class Brick {
     }
     isTouch(ball){
         if (ball.posY-ball.width/2<this.posY+this.height&&ball.posY+ball.width/2>=this.posY) {
-            if (ball.posX+ball.width/2>=this.posX&&ball.posX+this.width/2<this.posX+this.width) {
+            if (ball.posX+ball.width/2>=this.posX&&ball.posX-this.width/2<this.posX+this.width) {
                 return true;
             }
         }
