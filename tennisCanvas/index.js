@@ -61,9 +61,6 @@ const area={
     height:300
 }
 
-//рандомный угол
-
-
 function start() {
     gameNow=true;
 
@@ -75,7 +72,6 @@ function start() {
     ball.speedX=2*Math.sin(angle);
     racketRight.posY=110;
     racketLeft.posY=110;
-    console.log(ball);
 
     //нажатие клавиш
     if (gameNow){
@@ -207,6 +203,6 @@ function keyup(EO) {
     EO.preventDefault(); 
 }
 
-function randomDiap() {
-    return Math.round(Math.random());
-}
+// function randomDiap() {
+//     return Math.round(Math.random());
+// }
