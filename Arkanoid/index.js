@@ -119,7 +119,7 @@ function tick() {
     ball.posY+=ball.speedY;
     racket.posX+=racket.speedX;
     score.innerHTML=`Score: ${ball.acWin}/${ball.acGame}`;
-    level.innerHTML=`Level: ${ball.lev}`
+    level.innerHTML=`Level: ${ball.lev}`;
 
     //ударился ли мяч о кирпичик
     for (let i=0; i<bricks.length; i++) {
