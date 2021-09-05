@@ -60,7 +60,7 @@ function start(){
     if (gameNow){
         window.addEventListener('keydown',keydown,false);
         window.addEventListener('keyup',keyup,false);
-        window.addEventListener('mousemove',mousemove,false);
+        canvas.addEventListener('mousemove',mousemove,false);
     }
     requestG=requestAnimationFrame(tick);
 }
@@ -161,8 +161,6 @@ function mousemove(EO){
     if (!gameNow) {
         return
     }
-    if (canvas.target) {
-        racket.posX=EO.pageX;
-    }
+    racket.posX=EO.pageX;
 }
 
