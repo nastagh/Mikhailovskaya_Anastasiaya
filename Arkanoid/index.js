@@ -121,7 +121,7 @@ function tick() {
     for (let i=0; i<bricks.length; i++) {
         if (bricks[i].isTouch(ball)) {
             bricks.splice(i,1);
-            // ball.speedY=-ball.speedY;
+            ball.speedY=-ball.speedY;
             // ball.posY=bricks[bricks.i.posY]+bricks[bricks.i.height];
             break;
         }
