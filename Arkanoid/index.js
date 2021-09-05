@@ -64,7 +64,7 @@ let bricks=[];
 const amountInRow=4;
 const amountOfRows=3;
 const brickWidth=area.width/amountInRow;
-const brickHeith=10;
+const brickHeigth=10;
 
 
 // for (row=0; row<amountOfRows; row++){
@@ -76,7 +76,7 @@ const brickHeith=10;
 // }
 context.drawBrick= function(brick) {
     this.fillStyle=brick.color;
-    this.fillRect(brick.posX,brick.posY,brick.width,brick.heith);
+    this.fillRect(brick.posX,brick.posY,brick.width,brick.heigth);
 }
 
 
@@ -98,7 +98,7 @@ function start(){
     
     for (let row=0; row<amountOfRows; row++){
         for (let column=0; column<amountInRow; column++){
-            const brick=new Brick(column*brickWidth,row*brickHeith,brickWidth,brickHeith,'red');
+            const brick=new Brick(column*brickWidth,row*brickHeigth,brickWidth,brickHeith,'red');
             bricks.push(brick);
             context.drawBrick(brick)
         }
@@ -116,6 +116,9 @@ function tick() {
     racket.posX+=racket.speedX;
     score.innerHTML=`Score: ${ball.acWin}/${ball.acGame}`;
 
+    bricks.forEach(brick => {
+        context.drawBrick(brick)
+    });
 
     //ушла ли ракетка за поле
     if (racket.posX<0) {
@@ -154,6 +157,9 @@ function tick() {
             ball.speedX=ball.speedX;
         }
     }
+
+    //ударился ли мяч о кирпич
+
 
 
     ball.updateB();
