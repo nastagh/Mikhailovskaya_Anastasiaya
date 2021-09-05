@@ -58,29 +58,36 @@ class Brick {
         this.height=height;
         this.color=color;
     }
+    isTouch(ball){
+        if (ball.posY+ball.width/2<this.posY+this.height&&ball.posY+ball.width/2>=this.posY) {
+            if (ball.posX+ball.width/2>=this.posX&&ball.posX+this.width/2<this.posX+this.width);
+            return true;
+        }
+    }
 }
 
 let bricks=[];
 const amountInRow=4;
 const amountOfRows=3;
-const brickWidth=area.width/amountInRow;
-const brickHeigth=10;
+const horisontalMargin=5;
+const brickWidth=(area.width-(amountInRow+1)*horisontalMargin)/amountInRow;
+const brickHeight=20;
+const verticalMargin=5;
 
-
-// for (row=0; row<amountOfRows; row++){
-//     for (column=0; column<amountInRow; column++){
-//         const brick=new Brick(column*brickWidth,row*brickHeith,brickWidth,brickHeith,'red');
-//         bricks.push(brick);
-//         context.drawBrick(brick)
-//     }
-// }
 context.drawBrick= function(brick) {
     this.fillStyle=brick.color;
-    this.fillRect(brick.posX,brick.posY,brick.width,brick.heigth);
+    this.fillRect(brick.posX,brick.posY,brick.width,brick.height);
+}
+for (let row=0; row<amountOfRows; row++){
+    for (let column=0; column<amountInRow; column++){
+        const brick=new Brick(column*brickWidth+(column+1)*horisontalMargin,row*brickHeight+(row+1)*verticalMargin,brickWidth,brickHeight,'red');
+        bricks.push(brick);
+        context.drawBrick(brick)
+    }
 }
 
 
-
+//начало игры
 function start(){
     gameNow=true;
     cancelAnimationFrame(requestG);
@@ -96,13 +103,6 @@ function start(){
         canvas.addEventListener('mousemove',mousemove,false);
     }
     
-    for (let row=0; row<amountOfRows; row++){
-        for (let column=0; column<amountInRow; column++){
-            const brick=new Brick(column*brickWidth,row*brickHeigth,brickWidth,brickHeith,'red');
-            bricks.push(brick);
-            context.drawBrick(brick)
-        }
-    }
     
     requestG=requestAnimationFrame(tick);
 }
@@ -115,10 +115,20 @@ function tick() {
     ball.posY+=ball.speedY;
     racket.posX+=racket.speedX;
     score.innerHTML=`Score: ${ball.acWin}/${ball.acGame}`;
+    
+    //ударился ли мяч о кирпичик
+    for (let i=0; i<bricks.length; i++) {
+        if (brick.isTouch(ball)) {
+            bricks.slice(i,1);
+            break;
+        }
+    }
 
+    //строим блоки
     bricks.forEach(brick => {
         context.drawBrick(brick)
     });
+
 
     //ушла ли ракетка за поле
     if (racket.posX<0) {
@@ -152,7 +162,7 @@ function tick() {
     }
     // ударился ли мяч о ракетку
     if (ball.posY+ball.width/2>racket.posY+racket.height/2) {
-        if (ball.posX>=racket.posX&&ball.posX<racket.posX+racket.width) {
+        if (ball.posX+ball.width/2>=racket.posX&&ball.posX<racket.posX+racket.width) {
             ball.speedY=-ball.speedY;
             ball.speedX=ball.speedX;
         }

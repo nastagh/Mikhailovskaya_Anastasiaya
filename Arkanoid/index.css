@@ -47,6 +47,9 @@ header {
     left: 80px;
     top: 250px;
 }
+#start:hover, #pause:hover {
+    cursor: pointer;
+}
 
 #pause {
     position: absolute;
