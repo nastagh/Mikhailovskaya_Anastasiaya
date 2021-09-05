@@ -96,8 +96,8 @@ function start(){
         canvas.addEventListener('mousemove',mousemove,false);
     }
     
-    for (row=0; row<amountOfRows; row++){
-        for (column=0; column<amountInRow; column++){
+    for (let row=0; row<amountOfRows; row++){
+        for (let column=0; column<amountInRow; column++){
             const brick=new Brick(column*brickWidth,row*brickHeith,brickWidth,brickHeith,'red');
             bricks.push(brick);
             context.drawBrick(brick)
