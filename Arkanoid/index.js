@@ -59,9 +59,10 @@ class Brick {
         this.color=color;
     }
     isTouch(ball){
-        if (ball.posY+ball.width/2<this.posY+this.height&&ball.posY+ball.width/2>=this.posY) {
-            if (ball.posX+ball.width/2>=this.posX&&ball.posX+this.width/2<this.posX+this.width);
-            return true;
+        if (ball.posY-ball.width/2<this.posY+this.height&&ball.posY+ball.width/2>=this.posY) {
+            if (ball.posX+ball.width/2>=this.posX&&ball.posX+this.width/2<this.posX+this.width) {
+                return true;
+            }
         }
     }
 }
@@ -120,6 +121,8 @@ function tick() {
     for (let i=0; i<bricks.length; i++) {
         if (bricks[i].isTouch(ball)) {
             bricks.splice(i,1);
+            // ball.speedY=-ball.speedY;
+            // ball.posY=bricks[bricks.i.posY]+bricks[bricks.i.height];
             break;
         }
     }
@@ -168,7 +171,6 @@ function tick() {
         }
     }
 
-    //ударился ли мяч о кирпич
 
 
 
