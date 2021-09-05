@@ -119,7 +119,7 @@ function tick() {
     //ударился ли мяч о кирпичик
     for (let i=0; i<bricks.length; i++) {
         if (bricks[i].isTouch(ball)) {
-            bricks.slice(i,1);
+            bricks.splice(i,1);
             break;
         }
     }
