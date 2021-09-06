@@ -102,8 +102,10 @@ function start(){
         canvas.addEventListener('touchstart',touchstart,false);
         canvas.addEventListener('touchend',touchend,false);
     }
+    clickSoundStartInit()
     clickSoundInit()  //запускае звук по нажатию на кнопку
     clickSoundBrickInit()
+    clickSoundStart()
     requestG=requestAnimationFrame(tick);
 }
 
@@ -261,6 +263,7 @@ function touchend(EO) {
 //звуки
 const clickAudio= new Audio("./6-track-6.mp3");
 const clickAudioBrick= new Audio("./brick.mp3");
+const clickAudioStart= new Audio("./start.mp3");
 
 function clickSoundInit() {
     clickAudio.play(); //запускаем звук
@@ -278,6 +281,16 @@ function clickSoundBrick() {
     clickAudioBrick.currentTime=0;
     clickAudioBrick.play();
 }
+function clickSoundStartInit() {
+    clickAudioStart.play(); 
+    clickAudioStart.pause(); 
+}
+function clickSoundStart() {
+    clickAudioStart.currentTime=0;
+    clickAudioStart.play();
+}
+
+
 //вибро
 function vibro(longFlag) {
     if ( navigator.vibrate ) { // есть поддержка Vibration API?
