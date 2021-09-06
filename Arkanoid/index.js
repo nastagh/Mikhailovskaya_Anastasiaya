@@ -80,14 +80,8 @@ context.drawBrick= function(brick) {
     this.fillStyle=brick.color;
     this.fillRect(brick.posX,brick.posY,brick.width,brick.height);
 }
-for (let row=0; row<amountOfRows; row++){
-    for (let column=0; column<amountInRow; column++){
-        const brick=new Brick(column*brickWidth+(column+1)*horisontalMargin,row*brickHeight+(row+1)*verticalMargin,brickWidth,brickHeight,'red');
-        bricks.push(brick);
-        context.drawBrick(brick)
-    }
-}
 
+fillBricks()
 
 //начало игры
 function start(){
@@ -99,19 +93,22 @@ function start(){
     ball.speedY=-2*(-1)^Math.round(Math.random());
     racket.posX=200;
     racket.posY=385;
+    if (bricks.length==0) {
+        fillBricks()
+    }
+
     if (gameNow){
         ball.speedX=2*(-1)^Math.round(Math.random());
         ball.speedY=-2*(-1)^Math.round(Math.random());
         window.addEventListener('keydown',keydown,false);
         window.addEventListener('keyup',keyup,false);
         canvas.addEventListener('mousemove',mousemove,false);
+        canvas.addEventListener('touchstart',touchstart,false);
+        canvas.addEventListener('touchend',touchend,false);
     }
-    
-    
+
     requestG=requestAnimationFrame(tick);
 }
-
-
 
 function tick() {
     context.clearRect(0,0,canvas.width,canvas.height);
@@ -130,14 +127,13 @@ function tick() {
             break;
         }
     }
-
     //строим блоки
     bricks.forEach(brick => {
         context.drawBrick(brick)
     });
 
     //если кирпичи выбились, то игра останавливается
-    if (bricks.length==0) {
+    if (bricks.length==0&&gameNow) {
         gameNow=false;
         ball.speedY=0;
         ball.speedX=0;
@@ -145,8 +141,6 @@ function tick() {
         ball.lev+=1;
     }
 
-
-    
     //ушла ли ракетка за поле
     if (racket.posX<0) {
         racket.posX=0;
@@ -185,9 +179,6 @@ function tick() {
         }
     }
 
-
-
-
     ball.updateB();
     racket.updateR();
     requestG=requestAnimationFrame(tick);
@@ -195,10 +186,6 @@ function tick() {
 ball.updateB();
 racket.updateR();
 
-
-
-
-        
 //клавиатура
 function keydown(EO){
     EO=EO || window.event;
@@ -237,4 +224,34 @@ function mousemove(EO){
     }
     racket.posX=EO.pageX-canvas.offsetLeft-racket.width/2;
 }
+//построение блоков
+function fillBricks() {
+    for (let row=0; row<amountOfRows; row++){
+        for (let column=0; column<amountInRow; column++){
+            const brick=new Brick(column*brickWidth+(column+1)*horisontalMargin,row*brickHeight+(row+1)*verticalMargin,brickWidth,brickHeight,'red');
+            bricks.push(brick);
+            context.drawBrick(brick)
+        }
+    }
+}
 
+//touch события
+let currentRacket;
+let touchX=0;
+function touchstart (EO) {
+    EO=EO || window.event; 
+    if (!gameNow) {
+        return
+    }
+    currentRacket=EO.target;
+    touchX=EO.pageX;
+    canvas.ontouchmove = mousemove;
+}
+
+function touchend(EO) {
+    canvas.ontouchmove = undefined;
+    EO=EO || window.event; 
+    if (currentRacket) {
+        currentRacket=undefined;
+    }
+}
