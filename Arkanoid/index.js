@@ -4,14 +4,12 @@ const canvas=document.getElementById('canvas');
 const context=canvas.getContext('2d');
 
 let requestG;
-
 let gameNow; //идет ли сейчас игра
 
 //счет
 const score=document.getElementById('score');
 //уровень
 const level=document.getElementById('level');
-
 //рисуем ракетку
 const racket={
     posX:200,
@@ -49,7 +47,6 @@ const area={
     height:400
 }
 
-
 //кирпичи
 class Brick {
     constructor(posX,posY,width,height,color) {
@@ -67,7 +64,6 @@ class Brick {
         }
     }
 }
-
 let bricks=[];
 const amountInRow=4;
 const amountOfRows=3;
@@ -106,7 +102,8 @@ function start(){
         canvas.addEventListener('touchstart',touchstart,false);
         canvas.addEventListener('touchend',touchend,false);
     }
-
+    clickSoundInit()  //запускае звук по нажатию на кнопку
+    clickSoundBrickInit()
     requestG=requestAnimationFrame(tick);
 }
 
@@ -123,7 +120,8 @@ function tick() {
         if (bricks[i].isTouch(ball)) {
             bricks.splice(i,1);
             ball.speedY=-ball.speedY;
-            // ball.posY=bricks[bricks.i.posY]+bricks[bricks.i.height];
+            clickSoundBrick();
+            vibro(true);
             break;
         }
     }
@@ -152,16 +150,19 @@ function tick() {
     if (ball.posX-ball.width/2<0) {
         ball.speedX=-ball.speedX;
         ball.posX=ball.width/2;
+        vibro(false)
     }
     //вылетел ли мячик вправо
     if (ball.posX+ball.width/2>area.width) {
         ball.posX=area.width-ball.width/2;
         ball.speedX=-ball.speedX;
+        vibro(false)
     }
     //вылетел ли мячик вверх
     if (ball.posY-ball.width/2<0) {
         ball.speedY=-ball.speedY;
         ball.posY=ball.width/2;
+        vibro(false)
     }
     //вылетел ли мячик вниз
     if (ball.posY+ball.width/2>area.height) {
@@ -169,6 +170,7 @@ function tick() {
         ball.speedX=0;
         ball.posY=area.height-ball.width/2;
         ball.acGame+=1;
+        clickSound();
         gameNow=false;
     }
     // ударился ли мяч о ракетку
@@ -176,9 +178,9 @@ function tick() {
         if (ball.posX+ball.width/2>=racket.posX&&ball.posX<racket.posX+racket.width) {
             ball.speedY=-ball.speedY;
             ball.speedX=ball.speedX;
+            vibro(true);
         }
     }
-
     ball.updateB();
     racket.updateR();
     requestG=requestAnimationFrame(tick);
@@ -256,3 +258,32 @@ function touchend(EO) {
     }
 }
 
+//звуки
+const clickAudio= new Audio("./6-track-6.mp3");
+const clickAudioBrick= new Audio("./brick.mp3");
+
+function clickSoundInit() {
+    clickAudio.play(); //запускаем звук
+    clickAudio.pause(); //и сразу выключаем
+}
+function clickSound() {
+    clickAudio.currentTime=0;
+    clickAudio.play();
+}
+function clickSoundBrickInit() {
+    clickAudioBrick.play();
+    clickAudioBrick.pause();
+}
+function clickSoundBrick() {
+    clickAudioBrick.currentTime=0;
+    clickAudioBrick.play();
+}
+//вибро
+function vibro(longFlag) {
+    if ( navigator.vibrate ) { // есть поддержка Vibration API?
+        if ( !longFlag )
+            window.navigator.vibrate(100); // вибрация 100мс
+        else
+            window.navigator.vibrate([100,50,100,50,100]); // вибрация 3 раза по 100мс с паузами 50мс
+    }
+}
