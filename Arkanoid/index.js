@@ -255,3 +255,5 @@ function touchend(EO) {
         currentRacket=undefined;
     }
 }
+
+function
