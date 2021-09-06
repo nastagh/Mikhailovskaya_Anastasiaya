@@ -256,4 +256,3 @@ function touchend(EO) {
     }
 }
 
-function
