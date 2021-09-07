@@ -19,11 +19,21 @@
         <div id="level">
         </div>
     </div>
-    <div class="container">
-        <canvas id="canvas" width="500" height="400">
-        </canvas>
-        <input type="button" value="Start" id="start" onclick="start()">
-        <input type="button" value="Pause" id="pause">
+    <div>
+        <div id="container">
+            <canvas id="canvas" width="500" height="400">
+            </canvas>
+        </div>
+        <input type="button" value="Правила" id="rules" class="rightButton" onclick="switchToRules()">
+        <input type="button" value="Играть" id="start" class="rightButton" onclick="start()">
+        <input type="button" value="Пауза" id="pause" class="rightButton">
+        <div id="rulesContainer"> 
+            <div id="rulesInfo">
+                Во время прохождения Арканоида игроку потребуется зоркое зрение, внимательность и знание законов физики и геометрии. Предсказать, куда именно полетит шарик, оторвавшись от «ракетки» или стены, довольно сложно. На это влияет многое – и скорость, с какой вы пододвинули «ракетку» под удар, и точка отражения... Можно положиться на свою интуицию или ловко и быстро подставлять под мячик нужный конец «ракетки»... Одним словом, стратегий для победы масса – и нужно лишь правильно воспользоваться ими. Управлять ракеткой можно мышкой, клавишами «лево» и «право» или используя тачскрин на мобильном телефоне. Чтобы начать игру, нужно нажать на кнопку «ИГРАТЬ». Игру можно приостановить, нажав на кнопку «Пауза». Во время паузы игровое время останавливается, а мяч и ракетка замирают. Вот, в общем-то, и все. УДАЧИ!!!
+            </div>
+            <input type="button" value="К игре" onclick="switchToMainPage()" id="buttonRule">
+        </div>
+        
     </div>
     <script src="index.js"></script>
 </body>

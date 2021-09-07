@@ -28,7 +28,7 @@ header {
     font-family: 'Lobster', cursive;
 }
 
-.container {
+#container {
     width: 500px;
     height: 400px;
     margin: 0 auto;
@@ -37,27 +37,55 @@ header {
     background-size: cover;
     border: solid 1px rgb(29 111 84);
 }
-
-#start {
+.rightButton{
     position: absolute;
-    width: 100px;
+    width: 120px;
     font-family: 'Lobster', cursive;
     font-size: 28px;
     border-radius: 20px;
     left: 80px;
-    top: 250px;
+}
+
+#start {
+    top: 290px;
 }
 #start:hover, #pause:hover {
     cursor: pointer;
 }
-
 #pause {
-    position: absolute;
-    width: 100px;
+    top: 360px;
+}
+#rules {
+    top: 220px;
+}
+
+#rulesInfo {
+    font-family: 'Lobster', cursive;
+    font-size: 22px;
+    position: relative;
+    text-align: justify;
+    text-indent: 25px;
+
+}
+
+#rulesContainer {
+    width: 50%;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px 20px 60px 20px;
+    border-radius: 20px;
+    display: none;
+    position: relative;
+
+}
+
+#buttonRule {
+    width: 120px;
     font-family: 'Lobster', cursive;
     font-size: 28px;
     border-radius: 20px;
-    left: 80px;
-    top: 320px;
-
+    background-color: rgb(119, 226, 191);
+    position: absolute;
+    left: 38%;
 }
+

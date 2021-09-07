@@ -2,6 +2,10 @@
 
 const canvas=document.getElementById('canvas');
 const context=canvas.getContext('2d');
+const rules=document.getElementById('rulesInfo');
+const container=document.getElementById('container');
+const rulesInfo=document.getElementById('rulesInfo');
+const rulesContainer=document.getElementById('rulesContainer');
 
 let requestG;
 let gameNow; //идет ли сейчас игра
@@ -39,8 +43,8 @@ const ball={
         context.fill();
     }
 }
-score.innerHTML=`Score: ${ball.acWin}/${ball.acGame}`;
-level.innerHTML=`Level: ${ball.lev}`
+score.innerHTML=`Счет: ${ball.acWin}/${ball.acGame}`;
+level.innerHTML=`Уровень: ${ball.lev}`
 //поле
 const area={
     width:500,
@@ -102,6 +106,7 @@ function start(){
         canvas.addEventListener('touchstart',touchstart,false);
         canvas.addEventListener('touchend',touchend,false);
     }
+
     clickSoundStartInit()
     clickSoundInit()  //запускае звук по нажатию на кнопку
     clickSoundBrickInit()
@@ -183,6 +188,9 @@ function tick() {
             vibro(true);
         }
     }
+
+    
+
     ball.updateB();
     racket.updateR();
     requestG=requestAnimationFrame(tick);
@@ -290,7 +298,6 @@ function clickSoundStart() {
     clickAudioStart.play();
 }
 
-
 //вибро
 function vibro(longFlag) {
     if ( navigator.vibrate ) { // есть поддержка Vibration API?
@@ -300,3 +307,73 @@ function vibro(longFlag) {
             window.navigator.vibrate([100,50,100,50,100]); // вибрация 3 раза по 100мс с паузами 50мс
     }
 }
+//SPA
+window.onhashchange=switchToStateFromURLHash;
+// текущее состояние приложения
+let SPAState={};
+let stateStr="";
+function switchToStateFromURLHash() {
+    let URLHash=window.location.hash;
+    // убираем из закладки УРЛа решётку
+    stateStr=URLHash.substr(1);
+    if (stateStr!="") {       // если закладка непустая, читаем из неё состояние и отображаем
+        let parts=stateStr.split("_");
+        SPAState={pagename: parts[0]};// первая часть закладки - номер страницы
+    }
+    else
+        SPAState={pagename: 'Main'};
+    // обновляем вариабельную часть страницы под текущее состояние
+    // это реализация View из MVC - отображение состояния модели в HTML-код
+    let pageHTML="";
+    switch (SPAState.pagename) {
+        case 'Rules':
+            rulesContainer.style.display='block';
+            pageHTML=rulesInfo.textContent;
+            container.style.display='none';
+            break
+        case 'Main':
+            pageHTML="";
+            rulesContainer.style.display='none';
+            container.style.display='block';
+
+            break
+    }
+    document.getElementById('rulesInfo').innerHTML=pageHTML;
+}
+function switchToState(newState) {
+    // устанавливаем закладку УРЛа
+    // нужно для правильной работы кнопок навигации браузера
+    // (т.к. записывается новый элемент истории просмотренных страниц)
+    // и для возможности передачи УРЛа другим лицам
+    stateStr=newState.pagename;
+    location.hash=stateStr;
+}
+
+function switchToMainPage() {
+    switchToState({pagename: 'Main'});
+    
+}
+function switchToRules() {
+    switchToState({pagename:'Rules'});
+}
+switchToStateFromURLHash();
+
+// function displayRules() {
+//     console.log(1);
+//     if (switchToRules()) {
+//         container.style.display='none';
+//         rules.style.display='block';
+//         gameNow=false;
+//     }
+//     else {
+//         rules.style.display='none';
+//     }
+// }
+
+// //предупреждение о потере данных
+// window.onbeforeunload=befUnload;
+// function befUnload(EO) {
+//     EO=EO || window.event; 
+//     EO.returnValue='Несохраненные данные будут утеряны';
+// }
+
