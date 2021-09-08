@@ -6,9 +6,10 @@ const rules=document.getElementById('rulesInfo');
 const container=document.getElementById('container');
 const rulesInfo=document.getElementById('rulesInfo');
 const rulesContainer=document.getElementById('rulesContainer');
-let pauseButton=false;
 let requestG;
 let gameNow; //идет ли сейчас игра
+let pauseButton=false;
+const state={ballSpeedX:0, ballSpeedY:0, racketSpeedX:0};
 
 //счет
 const score=document.getElementById('score');
@@ -191,10 +192,9 @@ function tick() {
 
     //если была включена пауза
     if (pauseButton) {
-        ball.speedY=ball.offsetTop;
-        ball.speedX=ball.offsetLeft;
-        racket.posX=racket.offsetLeft;
-        racket.posY=racket.offsetTop;
+        ball.speedY=state.ballSpeedY;
+        ball.speedX=state.ballSpeedX;
+        racket.speedX=state.racketSpeedX;
     }
 
     ball.updateB();
@@ -372,6 +372,9 @@ function getRandomColor(min, max) {
 
 //пауза
 function pause() {
+    state.ballSpeedX=ball.speedX;
+    state.ballSpeedY=ball.speedY;
+    state.racketSpeedX=racket.speedX;
     pauseButton=true;
     gameNow=false;
     ball.speedY=0;

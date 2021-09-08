@@ -49,8 +49,9 @@ header {
 #start {
     top: 290px;
 }
-#start:hover, #pause:hover {
+#start:hover, #pause:hover, #rules:hover,#buttonRule:hover {
     cursor: pointer;
+    background-color: seagreen;
 }
 #pause {
     top: 360px;
