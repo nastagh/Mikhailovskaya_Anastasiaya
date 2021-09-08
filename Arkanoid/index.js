@@ -9,7 +9,7 @@ const rulesContainer=document.getElementById('rulesContainer');
 let requestG;
 let gameNow; //идет ли сейчас игра
 let pauseButton=false;
-const state={ballSpeedX:0, ballSpeedY:0, racketSpeedX:0};
+const state={ballSpeedX:0, ballSpeedY:0, racketSpeedX:0, ballPosX:0, ballPosY:0, racketPosX:0, racketPosY:0};
 
 //счет
 const score=document.getElementById('score');
@@ -192,9 +192,14 @@ function tick() {
 
     //если была включена пауза
     if (pauseButton) {
+        pauseButton=false;
         ball.speedY=state.ballSpeedY;
         ball.speedX=state.ballSpeedX;
+        ball.posX=state.ballPosX;
+        ball.posY=state.ballPosY;
         racket.speedX=state.racketSpeedX;
+        racket.posX=state.racketPosX;
+        racket.posY=state.racketPosY;
     }
 
     ball.updateB();
@@ -375,9 +380,12 @@ function pause() {
     state.ballSpeedX=ball.speedX;
     state.ballSpeedY=ball.speedY;
     state.racketSpeedX=racket.speedX;
+    state.ballPosX=ball.posX;
+    state.ballPosY=ball.posY;
+    state.racketPosY=racket.posY;
+    state.racketPosX=racket.posX;
     pauseButton=true;
     gameNow=false;
     ball.speedY=0;
     ball.speedX=0;
-    
 }
