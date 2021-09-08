@@ -379,4 +379,5 @@ function pause() {
     gameNow=false;
     ball.speedY=0;
     ball.speedX=0;
+    
 }
