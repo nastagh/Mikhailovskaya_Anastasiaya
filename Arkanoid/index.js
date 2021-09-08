@@ -6,7 +6,7 @@ const rules=document.getElementById('rulesInfo');
 const container=document.getElementById('container');
 const rulesInfo=document.getElementById('rulesInfo');
 const rulesContainer=document.getElementById('rulesContainer');
-
+let pauseButton=false;
 let requestG;
 let gameNow; //идет ли сейчас игра
 
@@ -189,7 +189,13 @@ function tick() {
         }
     }
 
-    
+    //если была включена пауза
+    if (pauseButton) {
+        ball.speedY=ball.offsetTop;
+        ball.speedX=ball.offsetLeft;
+        racket.posX=racket.offsetLeft;
+        racket.posY=racket.offsetTop;
+    }
 
     ball.updateB();
     racket.updateR();
@@ -240,7 +246,7 @@ function mousemove(EO){
 function fillBricks() {
     for (let row=0; row<amountOfRows; row++){
         for (let column=0; column<amountInRow; column++){
-            const brick=new Brick(column*brickWidth+(column+1)*horisontalMargin,row*brickHeight+(row+1)*verticalMargin,brickWidth,brickHeight,'red');
+            const brick=new Brick(column*brickWidth+(column+1)*horisontalMargin,row*brickHeight+(row+1)*verticalMargin,brickWidth,brickHeight,`rgb(${getRandomColor(0,255)}, ${getRandomColor(0,255)}, ${getRandomColor(0,255)}`);
             bricks.push(brick);
             context.drawBrick(brick)
         }
@@ -297,7 +303,6 @@ function clickSoundStart() {
     clickAudioStart.currentTime=0;
     clickAudioStart.play();
 }
-
 //вибро
 function vibro(longFlag) {
     if ( navigator.vibrate ) { // есть поддержка Vibration API?
@@ -324,21 +329,16 @@ function switchToStateFromURLHash() {
         SPAState={pagename: 'Main'};
     // обновляем вариабельную часть страницы под текущее состояние
     // это реализация View из MVC - отображение состояния модели в HTML-код
-    let pageHTML="";
     switch (SPAState.pagename) {
         case 'Rules':
             rulesContainer.style.display='block';
-            pageHTML=rulesInfo.textContent;
             container.style.display='none';
             break
         case 'Main':
-            pageHTML="";
             rulesContainer.style.display='none';
             container.style.display='block';
-
             break
     }
-    document.getElementById('rulesInfo').innerHTML=pageHTML;
 }
 function switchToState(newState) {
     // устанавливаем закладку УРЛа
@@ -351,25 +351,13 @@ function switchToState(newState) {
 
 function switchToMainPage() {
     switchToState({pagename: 'Main'});
-    
 }
 function switchToRules() {
     switchToState({pagename:'Rules'});
 }
 switchToStateFromURLHash();
 
-// function displayRules() {
-//     console.log(1);
-//     if (switchToRules()) {
-//         container.style.display='none';
-//         rules.style.display='block';
-//         gameNow=false;
-//     }
-//     else {
-//         rules.style.display='none';
-//     }
-// }
-
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // //предупреждение о потере данных
 // window.onbeforeunload=befUnload;
 // function befUnload(EO) {
@@ -377,3 +365,15 @@ switchToStateFromURLHash();
 //     EO.returnValue='Несохраненные данные будут утеряны';
 // }
 
+//РАНДОМНЫЙ ЦВЕТ
+function getRandomColor(min, max) {
+    return Math.ceil(Math.random()*(max-min)+min)
+}
+
+//пауза
+function pause() {
+    pauseButton=true;
+    gameNow=false;
+    ball.speedY=0;
+    ball.speedX=0;
+}
