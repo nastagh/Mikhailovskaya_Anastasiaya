@@ -174,3 +174,7 @@ header {
         display: none;
     }
 }
+
+@media only all and (min-width: 930px) and (max-width: 420px) {
+
+}
