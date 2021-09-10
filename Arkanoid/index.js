@@ -6,11 +6,12 @@ const rules=document.getElementById('rulesInfo');
 const container=document.getElementById('container');
 const rulesInfo=document.getElementById('rulesInfo');
 const rulesContainer=document.getElementById('rulesContainer');
+const recordsContainer=document.getElementById('recordsContainer');
+const nameContainer=document.getElementById('nameContainer');
 let requestG;
 let gameNow; //идет ли сейчас игра
 let pauseButton=false;
 const state={ballSpeedX:0, ballSpeedY:0, racketSpeedX:0, ballPosX:0, ballPosY:0, racketPosX:0, racketPosY:0};
-
 //счет
 const score=document.getElementById('score');
 //уровень
@@ -108,6 +109,18 @@ function start(){
         canvas.addEventListener('touchend',touchend,false);
     }
 
+    //если была включена пауза
+    if (pauseButton) {
+        pauseButton=false;
+        ball.speedY=state.ballSpeedY;
+        ball.speedX=state.ballSpeedX;
+        ball.posX=state.ballPosX;
+        ball.posY=state.ballPosY;
+        racket.speedX=state.racketSpeedX;
+        racket.posX=state.racketPosX;
+        racket.posY=state.racketPosY;
+    }
+
     clickSoundStartInit()
     clickSoundInit()  //запускае звук по нажатию на кнопку
     clickSoundBrickInit()
@@ -120,9 +133,9 @@ function tick() {
     ball.posX+=ball.speedX;
     ball.posY+=ball.speedY;
     racket.posX+=racket.speedX;
-    score.innerHTML=`Score: ${ball.acWin}/${ball.acGame}`;
-    level.innerHTML=`Level: ${ball.lev}`;
-
+    score.innerHTML=`Счет: ${ball.acWin}/${ball.acGame}`;
+    level.innerHTML=`Уровень: ${ball.lev}`
+    
     //ударился ли мяч о кирпичик
     for (let i=0; i<bricks.length; i++) {
         if (bricks[i].isTouch(ball)) {
@@ -190,17 +203,7 @@ function tick() {
         }
     }
 
-    //если была включена пауза
-    if (pauseButton) {
-        pauseButton=false;
-        ball.speedY=state.ballSpeedY;
-        ball.speedX=state.ballSpeedX;
-        ball.posX=state.ballPosX;
-        ball.posY=state.ballPosY;
-        racket.speedX=state.racketSpeedX;
-        racket.posX=state.racketPosX;
-        racket.posY=state.racketPosY;
-    }
+    
 
     ball.updateB();
     racket.updateR();
@@ -331,18 +334,34 @@ function switchToStateFromURLHash() {
         SPAState={pagename: parts[0]};// первая часть закладки - номер страницы
     }
     else
-        SPAState={pagename: 'Main'};
+        SPAState={pagename: 'Name'};
     // обновляем вариабельную часть страницы под текущее состояние
     // это реализация View из MVC - отображение состояния модели в HTML-код
     switch (SPAState.pagename) {
         case 'Rules':
             rulesContainer.style.display='block';
+            recordsContainer.style.display='none';
             container.style.display='none';
+            // nameContainer.style.display='none';
+            pause();
             break
         case 'Main':
             rulesContainer.style.display='none';
+            recordsContainer.style.display='none';
+            nameContainer.style.display='none';
             container.style.display='block';
             break
+        case 'Records':
+            nameContainer.style.display='none';
+            recordsContainer.style.display='block';
+            rulesContainer.style.display='none';
+            container.style.display='none';
+            pause();
+        case 'Name':
+            rulesContainer.style.display='none';
+            recordsContainer.style.display='none';
+            nameContainer.style.display='block';
+            container.style.display='none';
     }
 }
 function switchToState(newState) {
@@ -360,6 +379,13 @@ function switchToMainPage() {
 function switchToRules() {
     switchToState({pagename:'Rules'});
 }
+function switchToRecords(){
+    switchToState({pagename:'Records'});
+}
+function switchToName() {
+    switchToState({pagename:'Name'});
+}
+
 switchToStateFromURLHash();
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -389,3 +415,115 @@ function pause() {
     ball.speedY=0;
     ball.speedX=0;
 }
+
+
+//таблица рекордов
+const ajaxHandlerScript="https://fe.it-academy.by/AjaxStringStorage2.php";
+let messages; // элемент массива - {name:'Иванов',score:'1'};
+let updatePassword;
+const stringName='MIKHAILOVSKAYA_ARKANOID';
+// показывает все сообщения из messages на страницу
+function showMessages() {
+    let str='';
+    for (let m=0; m<messages.length; m++) {
+        let message=messages[m];
+        str+='<tr>'+'<td style="width: 50%; text-align: center">'+escapeHTML(message.name)+'</td>'+'<td style="width: 50%; text-align: center">'+escapeHTML(message.score)+'</td>'+'</tr>';
+    }
+    document.getElementById('tablerecords').innerHTML=str;
+} 
+function escapeHTML(text) {
+    if ( !text )
+        return text;
+    text=text.toString()
+        .split("&").join("&amp;")
+        .split("<").join("&lt;")
+        .split(">").join("&gt;")
+        .split('"').join("&quot;")
+        .split("'").join("&#039;");
+    return text;
+}
+// получает сообщения с сервера и потом показывает
+function refreshMessages() {
+    $.ajax( {
+        url : ajaxHandlerScript,
+        type : 'POST', dataType:'json',
+        data : { f : 'READ', n : stringName },
+        cache : false,
+        success : readReady,
+        error : errorHandler
+    }
+    );
+}
+
+function readReady(callresult) { // сообщения получены - показывает
+    if ( callresult.error!=undefined )
+        alert(callresult.error);
+    else {
+        messages=[];
+        if ( callresult.result!="" ) { // либо строка пустая - сообщений нет
+            // либо в строке - JSON-представление массива сообщений
+            messages=JSON.parse(callresult.result);
+            // вдруг кто-то сохранил мусор 
+            if ( !Array.isArray(messages) )
+                messages=[];
+        }
+        showMessages();
+    }
+}
+// получает сообщения с сервера, добавляет новое,
+// показывает и сохраняет на сервере
+function sendMessage() {
+    switchToState({pagename: 'Main'});
+    updatePassword=Math.random();
+    $.ajax( {
+            url : ajaxHandlerScript,
+            type : 'POST', dataType:'json',
+            data : { f : 'LOCKGET', n : stringName,
+                p : updatePassword },
+            cache : false,
+            success : lockGetReady,
+            error : errorHandler
+        }
+    );
+}
+// сообщения получены, добавляет, показывает, сохраняет
+function lockGetReady(callresult) {
+    if ( callresult.error!=undefined )
+        alert(callresult.error);
+    else {
+        messages=[];
+        if ( callresult.result!="" ) { // либо строка пустая - сообщений нет
+            // либо в строке - JSON-представление массива сообщений
+            messages=JSON.parse(callresult.result);
+            // вдруг кто-то сохранил мусор 
+            if ( !Array.isArray(messages) )
+                messages=[];
+        }
+    const senderName=document.getElementById('IName').value;
+    let message=ball.acWin+"/"+ball.acGame;
+    messages.push({name:senderName, score:message});
+    if ( messages.length>10 ){
+        messages=messages.slice(messages.length-10);
+    }
+    showMessages();
+    $.ajax( {
+        url : ajaxHandlerScript,
+        type : 'POST', dataType:'json',
+        data : { f : 'UPDATE', n : stringName,
+            v : JSON.stringify(messages), p : updatePassword },
+        cache : false,
+        success : updateReady,
+        error : errorHandler
+            }
+        );
+    }
+}
+// сообщения вместе с новым сохранены на сервере
+function updateReady(callresult) {
+    if ( callresult.error!=undefined )
+        alert(callresult.error);
+}
+function errorHandler(jqXHR,statusStr,errorStr) {
+    alert(statusStr+' '+errorStr);
+}
+refreshMessages();

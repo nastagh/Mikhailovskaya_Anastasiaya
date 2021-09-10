@@ -25,9 +25,19 @@
             <canvas id="canvas" width="500" height="400">
             </canvas>
         </div>
+        <div id="nameContainer">
+            <p>
+                Введите Ваше имя:
+                <input type="text" id="IName">
+            </p>
+            <div class="buttonRulesContainer">
+                <input type="button" value="Отправить" onclick="sendMessage()" id="buttonRecords">
+            </div>
+        </div>
         <input type="button" value="Правила" id="rules" class="rightButton" onclick="switchToRules()">
         <input type="button" value="Играть" id="start" class="rightButton" onclick="start()">
         <input type="button" value="Пауза" id="pause" class="rightButton" onclick="pause()">
+        <input type="button" value="Рекорды" id="records" class="rightButton" onclick="switchToRecords()">
         <div id="rulesContainer"> 
             <div id="rulesInfo">
                 <p>Во время прохождения Арканоида игроку потребуется зоркое зрение, внимательность и знание законов физики и геометрии. Предсказать, куда именно полетит шарик, оторвавшись от «ракетки» или стены, довольно сложно. На это влияет многое – и скорость, с какой вы пододвинули «ракетку» под удар, и точка отражения... Можно положиться на свою интуицию или ловко и быстро подставлять под мячик нужный конец «ракетки»... Одним словом, стратегий для победы масса – и нужно лишь правильно воспользоваться ими. 
@@ -38,8 +48,31 @@
             </div>
             <input type="button" value="К игре" onclick="switchToMainPage()" id="buttonRule">
         </div>
+        <div id="recordsContainer">
+            <table id="recordHead">
+                <tr>
+                    <th>
+                        Имя
+                    </th>
+                    <th>
+                        Очки
+                    </th>
+            </table>
+            <table id="tablerecords" border="1">
+                </tr>
+            </table>
+            <!-- <p>
+                Введите Ваше имя:
+                <input type="text" id="IName">
+            </p> -->
+            <div class="buttonRulesContainer">
+                <!-- <input type="button" value="Отправить" onclick="sendMessage()" id="buttonRecords"> -->
+                <input type="button" value="К игре" onclick="switchToMainPage()" id="buttonRecords">
+            </div>
+        </div>
         
     </div>
+    <script src="http://fe.it-academy.by/JQ/jquery.js"></script>
     <script src="index.js"></script>
 </body>
 </html>
