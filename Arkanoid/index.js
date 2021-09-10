@@ -271,7 +271,12 @@ function touchstart (EO) {
     }
     currentRacket=EO.target;
     touchX=EO.pageX;
-    canvas.ontouchmove = mousemove;
+    canvas.ontouchmove = (event)=>{
+        event.preventDefault()
+        const touch = event.touches[0] || event.changedTouches[0];
+        event.pageX = touch.pageX;
+        mousemove(event);
+    };
 }
 
 function touchend(EO) {

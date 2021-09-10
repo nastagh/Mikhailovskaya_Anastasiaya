@@ -175,6 +175,11 @@ header {
     }
 }
 
-@media only all and (min-width: 930px) and (max-width: 420px) {
-
+@media only all and (min-width: 930px) and (max-width: 370px) {
+    .info {
+        width: 50%;
+    }
+    #container {
+        width: 350px;
+    }
 }
