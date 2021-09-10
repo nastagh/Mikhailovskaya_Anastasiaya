@@ -49,7 +49,7 @@ score.innerHTML=`Счет: ${ball.acWin}/${ball.acGame}`;
 level.innerHTML=`Уровень: ${ball.lev}`
 //поле
 const area={
-    width:500,
+    width:canvas.offsetWidth,
     height:400
 }
 

@@ -30,7 +30,7 @@ header {
 
 #container {
     /* display: none; */
-    width: 500px;
+    width: 50%;
     height: 400px;
     margin: 0 auto;
     background-image: url('./fonblue.jpg');
