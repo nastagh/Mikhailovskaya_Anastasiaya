@@ -7,6 +7,10 @@ const container=document.getElementById('container');
 const rulesInfo=document.getElementById('rulesInfo');
 const rulesContainer=document.getElementById('rulesContainer');
 const recordsContainer=document.getElementById('recordsContainer');
+
+canvas.width=container.offsetWidth;
+canvas.height=container.offsetHeight;
+
 // const nameContainer=document.getElementById('nameContainer');
 let requestG;
 let gameNow; //идет ли сейчас игра
@@ -49,9 +53,10 @@ score.innerHTML=`Счет: ${ball.acWin}/${ball.acGame}`;
 level.innerHTML=`Уровень: ${ball.lev}`
 //поле
 const area={
-    width:canvas.offsetWidth,
+    width:canvas.width,
     height:400
 }
+console.log (area.width);
 
 //кирпичи
 class Brick {
