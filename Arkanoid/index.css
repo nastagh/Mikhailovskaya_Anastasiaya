@@ -177,6 +177,7 @@ header {
     .rightButton {
         display: none;
     }
+
 }
 
 @media only all and  (max-width:510px) {
@@ -193,9 +194,11 @@ header {
         justify-content: space-between;
     }
     #container {
-        width: 100%;
+        width: 90%;
         /* margin: 0 20px 0 20px; */
     }
-    
+    #rulesContainer {
+        width: 80%;
+    }
     
 }
