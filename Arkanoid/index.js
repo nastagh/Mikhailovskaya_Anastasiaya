@@ -399,13 +399,12 @@ function switchToRecords(){
 
 switchToStateFromURLHash();
 
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// //предупреждение о потере данных
-// window.onbeforeunload=befUnload;
-// function befUnload(EO) {
-//     EO=EO || window.event; 
-//     EO.returnValue='Несохраненные данные будут утеряны';
-// }
+//предупреждение о потере данных
+window.onbeforeunload=befUnload;
+function befUnload(EO) {
+    EO=EO || window.event; 
+    EO.returnValue='Несохраненные данные будут утеряны';
+}
 
 //РАНДОМНЫЙ ЦВЕТ
 function getRandomColor(min, max) {
