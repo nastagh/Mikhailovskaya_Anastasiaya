@@ -30,8 +30,7 @@ header {
 
 
 #container {
-    /* display: none; */
-    width: 50%;
+    width: 500px;
     height: 400px;
     margin: 0 auto;
     background-image: url('./fonblue.jpg');
@@ -180,7 +179,7 @@ header {
     }
 }
 
-@media only all and  (max-width: 370px) {
+@media only all and  (max-width:510px) {
     #downContainer {
         display: block;
     }
@@ -190,12 +189,14 @@ header {
 
     .info {
         width: 50%;
+        font-size: 25px;
+        justify-content: space-between;
     }
 
     #container {
         width: 100%;
-        margin: 0 20px;
+        /* margin: 0 20px 0 20px; */
     }
-
+    
     
 }
