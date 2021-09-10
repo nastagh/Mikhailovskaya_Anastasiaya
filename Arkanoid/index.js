@@ -56,7 +56,6 @@ const area={
     width:canvas.width,
     height:400
 }
-console.log (area.width);
 
 //кирпичи
 class Brick {
