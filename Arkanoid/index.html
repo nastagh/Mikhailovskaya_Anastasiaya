@@ -20,19 +20,19 @@
         <div id="level">
         </div>
     </div>
+    <!-- <div id="nameContainer">
+        <p>
+            Введите Ваше имя:
+            <input type="text" id="IName">
+        </p>
+        <div class="buttonRulesContainer">
+            <input type="button" value="Отправить" onclick="sendMessage()" id="buttonRecords">
+        </div>
+    </div> -->
     <div>
         <div id="container">
             <canvas id="canvas" width="500" height="400">
             </canvas>
-        </div>
-        <div id="nameContainer">
-            <p>
-                Введите Ваше имя:
-                <input type="text" id="IName">
-            </p>
-            <div class="buttonRulesContainer">
-                <input type="button" value="Отправить" onclick="sendMessage()" id="buttonRecords">
-            </div>
         </div>
         <input type="button" value="Правила" id="rules" class="rightButton" onclick="switchToRules()">
         <input type="button" value="Играть" id="start" class="rightButton" onclick="start()">
@@ -61,16 +61,21 @@
             <table id="tablerecords" border="1">
                 </tr>
             </table>
-            <!-- <p>
+            <p>
                 Введите Ваше имя:
                 <input type="text" id="IName">
-            </p> -->
+            </p>
             <div class="buttonRulesContainer">
-                <!-- <input type="button" value="Отправить" onclick="sendMessage()" id="buttonRecords"> -->
+                <input type="button" value="Отправить" onclick="sendMessage()" id="buttonRecords">
                 <input type="button" value="К игре" onclick="switchToMainPage()" id="buttonRecords">
             </div>
         </div>
-        
+    </div>
+    <div id="downContainer">
+        <input type="button" value="Правила" id="rules" class="downButton" onclick="switchToRules()">
+        <input type="button" value="Играть" id="start" class="downButton" onclick="start()">
+        <input type="button" value="Пауза" id="pause" class="downButton" onclick="pause()">
+        <input type="button" value="Рекорды" id="records" class="downButton" onclick="switchToRecords()">
     </div>
     <script src="http://fe.it-academy.by/JQ/jquery.js"></script>
     <script src="index.js"></script>

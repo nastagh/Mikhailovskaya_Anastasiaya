@@ -7,7 +7,7 @@ const container=document.getElementById('container');
 const rulesInfo=document.getElementById('rulesInfo');
 const rulesContainer=document.getElementById('rulesContainer');
 const recordsContainer=document.getElementById('recordsContainer');
-const nameContainer=document.getElementById('nameContainer');
+// const nameContainer=document.getElementById('nameContainer');
 let requestG;
 let gameNow; //идет ли сейчас игра
 let pauseButton=false;
@@ -334,7 +334,7 @@ function switchToStateFromURLHash() {
         SPAState={pagename: parts[0]};// первая часть закладки - номер страницы
     }
     else
-        SPAState={pagename: 'Name'};
+        SPAState={pagename: 'Main'};
     // обновляем вариабельную часть страницы под текущее состояние
     // это реализация View из MVC - отображение состояния модели в HTML-код
     switch (SPAState.pagename) {
@@ -348,20 +348,22 @@ function switchToStateFromURLHash() {
         case 'Main':
             rulesContainer.style.display='none';
             recordsContainer.style.display='none';
-            nameContainer.style.display='none';
+            // nameContainer.style.display='none';
             container.style.display='block';
             break
         case 'Records':
-            nameContainer.style.display='none';
+            // nameContainer.style.display='none';
             recordsContainer.style.display='block';
             rulesContainer.style.display='none';
             container.style.display='none';
             pause();
-        case 'Name':
-            rulesContainer.style.display='none';
-            recordsContainer.style.display='none';
-            nameContainer.style.display='block';
-            container.style.display='none';
+            break
+        // case 'Name':
+        //     rulesContainer.style.display='none';
+        //     recordsContainer.style.display='none';
+        //     nameContainer.style.display='block';
+        //     container.style.display='none';
+        //     break
     }
 }
 function switchToState(newState) {
@@ -382,9 +384,9 @@ function switchToRules() {
 function switchToRecords(){
     switchToState({pagename:'Records'});
 }
-function switchToName() {
-    switchToState({pagename:'Name'});
-}
+// function switchToName() {
+//     switchToState({pagename:'Name'});
+// }
 
 switchToStateFromURLHash();
 
@@ -473,7 +475,7 @@ function readReady(callresult) { // сообщения получены - пок
 // получает сообщения с сервера, добавляет новое,
 // показывает и сохраняет на сервере
 function sendMessage() {
-    switchToState({pagename: 'Main'});
+    // switchToState({pagename: 'Main'});
     updatePassword=Math.random();
     $.ajax( {
             url : ajaxHandlerScript,
