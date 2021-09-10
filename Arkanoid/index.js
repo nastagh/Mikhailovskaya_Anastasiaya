@@ -8,8 +8,8 @@ const rulesInfo=document.getElementById('rulesInfo');
 const rulesContainer=document.getElementById('rulesContainer');
 const recordsContainer=document.getElementById('recordsContainer');
 
-canvas.width=container.offsetWidth;
-canvas.height=container.offsetHeight;
+// canvas.width=container.offsetWidth;
+// canvas.height=container.offsetHeight;
 
 // const nameContainer=document.getElementById('nameContainer');
 let requestG;
