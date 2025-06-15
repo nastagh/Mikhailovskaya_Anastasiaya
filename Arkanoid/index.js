@@ -49,8 +49,8 @@ const ball={
         context.fill();
     }
 }
-score.innerHTML=`Счет: ${ball.acWin}/${ball.acGame}`;
-level.innerHTML=`Уровень: ${ball.lev}`
+score.innerHTML=`Score: ${ball.acWin}/${ball.acGame}`;
+level.innerHTML=`Level: ${ball.lev}`
 //поле
 const area={
     width:canvas.width,
@@ -137,8 +137,8 @@ function tick() {
     ball.posX+=ball.speedX;
     ball.posY+=ball.speedY;
     racket.posX+=racket.speedX;
-    score.innerHTML=`Счет: ${ball.acWin}/${ball.acGame}`;
-    level.innerHTML=`Уровень: ${ball.lev}`
+    score.innerHTML=`Score: ${ball.acWin}/${ball.acGame}`;
+    level.innerHTML=`Level: ${ball.lev}`
     
     //ударился ли мяч о кирпичик
     for (let i=0; i<bricks.length; i++) {
@@ -403,7 +403,7 @@ switchToStateFromURLHash();
 window.onbeforeunload=befUnload;
 function befUnload(EO) {
     EO=EO || window.event; 
-    EO.returnValue='Несохраненные данные будут утеряны';
+    EO.returnValue='Unsaved data will be lost';
 }
 
 //РАНДОМНЫЙ ЦВЕТ
